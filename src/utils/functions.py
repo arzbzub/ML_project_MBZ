@@ -151,9 +151,10 @@ class model():
         - model_scoring: metric to be used in gridsearchCV, e.g. "accuracy" - type string
         - X_train: dataframe with variables to be used for training model - type dataframe, series or arrays
         - y_train: target values to be used for training model - type series or array
-        Return: array with two elements:
+        Return: array with three elements:
                 - trained model pipeline - type pipeline
                 - message indicating the best score obtained by the trained model - type string
+                - model best params - type dictionary
         '''        
         
         pipeline = Pipeline([
@@ -169,8 +170,9 @@ class model():
 
         grid_search.fit(X_train, y_train)
         grid_model = grid_search.best_estimator_
+        best_params = grid_search.best_params_
 
-        result =  [grid_model, str("Best "+ model_scoring+ ' for model is '+ str(round(grid_search.best_score_,2)))]
+        result =  [grid_model, str("Best "+ model_scoring+ ' for model is '+ str(round(grid_search.best_score_,2))), best_params]
         return result   
 
 
